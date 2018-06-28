@@ -1,4 +1,4 @@
-controller.prototype._registerServiceWorker = () => {
+this.prototype._registerServiceWorker = () => {
     if(!navigator.serviceWorker) return;
 
     const indexController = this;
@@ -21,7 +21,7 @@ controller.prototype._registerServiceWorker = () => {
         });
 }
 
-controller.prototype._trackInstalling = function(worker) {
+this.prototype._trackInstalling = function(worker) {
     var indexController = this;
     worker.addEventListener('statechange', function() {
       if (worker.state == 'installed') {
