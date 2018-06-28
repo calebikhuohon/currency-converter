@@ -1,7 +1,9 @@
 if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
     .then(reg => console.log("Registration successful"))
     .catch(() => console.log("Registration failed"));
+    });
   }
 
 let dropdown = document.getElementById('currency-from');
