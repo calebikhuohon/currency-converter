@@ -1,0 +1,106 @@
+.main {
+    background-image: url(http://res.cloudinary.com/calebikhuohon/image/upload/v1529915268/macbookpro2.jpg);
+}
+
+.background {
+    background: #E5E5E5;
+    height: 100%;
+    width: 100%;
+}
+
+.convert {
+    background: #EA8A1B;
+    height: 100%;
+    width: 100%;
+   
+}
+
+.convert-container {
+    background: #EFFCFE;
+    margin: 0 auto 0 auto;
+    width: 50%;
+    height: 90%;
+    border: 5px;
+    border-radius: 2%;
+    vertical-align: middle;
+    -moz-box-shadow: 0 0 10px #777777;
+    -webkit-box-shadow: 0 0 10px #777777;
+    position: absolute;
+    top: 5%;
+    right: 25%;
+    box-shadow: 0 0 10px #777777;
+}
+
+.convert-from {
+    margin-bottom: 5%;
+    margin-top: 0%;
+    font-size: 120%;
+    color: #5a5854;
+    background-color: #f2f2f2;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    padding: 5px 5px 5px 30px;
+    position: absolute;
+    top: 20%;
+    right: 52%;
+   
+}
+
+.convert-to {
+    margin-bottom: 5%;
+    margin-top: 0%;
+    font-size: 120%;
+    color: #5a5854;
+    background-color: #f2f2f2;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    padding: 5px 5px 5px 30px;
+    position: absolute;
+    left: 50%;
+     top: 20%;
+}
+
+
+.amount-from {
+    position: absolute;
+    font-size: 120%;
+    color: #5a5854;
+    background-color: #f2f2f2;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    
+    top: 40%;
+    right: 35%;
+}
+
+.amount-to {
+    position: absolute;
+    font-size: 120%;
+    color: #5a5854;
+    background-color: #f2f2f2;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+   
+    right: 35%;
+    bottom: 40%;
+}
+.input {
+    font-size: 120%;
+    color: #5a5854;
+    background-color: #f2f2f2;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    padding: 5px 5px 5px 30px;
+}
+
+.convert-button {
+    margin-top: 35%;
+    margin-left: 40%;
+    font-size: 18px;
+    color: #ffffff;
+    padding: 0.5rem 2rem;
+    background: -webkit-linear-gradient(top,#EA8A1B  0%, #afafaf);
+	background: -ms-linear-gradient(top, #EA8A1B 0%, #afafaf);
+
+}
+
