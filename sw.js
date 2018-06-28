@@ -5,9 +5,10 @@ self.addEventListener('install', (event) => {
       caches.open(staticCacheName).then((cache) => {
         return cache.addAll([
             '/',
-          'js/index.js',
+          'index.js',
           'css/index.css',
-          'html/index.html'  
+          'index.html',
+            'https://free.currencyconverterapi.com/api/v5/currencies'
         ]);
       })
     );
