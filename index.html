@@ -9,6 +9,13 @@
     
     <script type="text/javascript" src="index.js" async></script>
     <script type="text/javascript" src="sw.js" async></script>
+    <script> if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+    .then(reg => console.log(`Registration successful`))
+  
+    });
+        }</script>
     
     <title>Currency Converter</title>
 </head>
