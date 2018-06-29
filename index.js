@@ -12,7 +12,7 @@
     refreshing = true;
   });
   
-  return idb.open('currency-converter', 1, (upgradeDb) => {
+  let dbPromise = idb.open('currency-converter', 1, (upgradeDb) => {
     const store = upgradeDb.createObjectStore('currency-converter');
     store.createIndex('exchange rate', 'currency');
   });
