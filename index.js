@@ -5,11 +5,16 @@
     .catch(err => console.log(`Error: ${err}`));
    
   
-  var refreshing;
-  navigator.serviceWorker.addEventListener('controllerchange', function() {
+  let refreshing;
+  navigator.serviceWorker.addEventListener('controllerchange',() => {
     if (refreshing) return;
     window.location.reload();
     refreshing = true;
+  });
+  
+  return idb.open('currency-converter', 1, (upgradeDb) => {
+    const store = upgradeDb.createObjectStore('currency-converter');
+    store.createIndex('exchange rate', 'currency');
   });
         }
    
