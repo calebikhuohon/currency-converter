@@ -1,19 +1,19 @@
 const staticCacheName = `converter-static-v1`;
 
-self.addEventListener('install', (event) => {
-    console.log("install starting");
-    event.waitUntil(
-      
-      caches.open(staticCacheName).then((cache) => {
-        return cache.addAll([
+const URLs = [
             '/currency-converter/',
           '/currency-converter/index.js',
           '/currency-converter/index.css',
           '/currency-converter/index.html',
             'https://free.currencyconverterapi.com/api/v5/currencies'
-        ]);
+        ];
+
+self.addEventListener('install', (event) => {
+    console.log("install starting");
+    event.waitUntil(
+      caches.open(staticCacheName).then((cache) => {
+        return cache.addAll(URLs);
       });
-   
     );
   });
   
