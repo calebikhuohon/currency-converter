@@ -11,20 +11,7 @@
     
     <script type="text/javascript" src="index.js" async></script>
     <script type="text/javascript" src="sw.js" async></script>
-    <script async> if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./currency-converter/sw.js', {scope: 'currency-converter'})
-    .then(reg => console.log(`Registration successful`))
-    .catch(err => console.log(`Error: ${err}`));
-    });
-             var refreshing;
-  navigator.serviceWorker.addEventListener('controllerchange', function() {
-    if (refreshing) return;
-    window.location.reload();
-    refreshing = true;
-  });
-        }
-    </script>
+   
     
     <title>Currency Converter</title>
 </head>
