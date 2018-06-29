@@ -4,10 +4,10 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
       caches.open(staticCacheName).then((cache) => {
         return cache.addAll([
-            '/',
-          'index.js',
-          'css/index.css',
-          'index.html',
+            '/currency-converter/',
+          '/currency-converter/index.js',
+          '/currency-converter/index.css',
+          '/currency-converter/index.html',
             'https://free.currencyconverterapi.com/api/v5/currencies'
         ]);
       })
