@@ -1,0 +1,6 @@
+{
+  "name": "currency-converter",
+  "scope": "/",
+  "display": "standalone",
+  "start_url": "/"
+}
