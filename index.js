@@ -1,10 +1,23 @@
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
+ if ('serviceWorker' in navigator) {
+    
+    navigator.serviceWorker.register('./sw.js', {scope: './currency-converter'})
     .then(reg => console.log(`Registration successful`))
-    .catch((err) => console.log("Registration failed" + err));
-    });
-  }
+    .catch(err => console.log(`Error: ${err}`));
+   
+  
+  let refreshing;
+  navigator.serviceWorker.addEventListener('controllerchange',() => {
+    if (refreshing) return;
+    window.location.reload();
+    refreshing = true;
+  });
+  
+  let dbPromise = idb.open('currency-converter', 1, (upgradeDb) => {
+    const store = upgradeDb.createObjectStore('currency-converter');
+    store.createIndex('exchange rate', 'currency');
+  });
+        }
+   
 
 let dropdown = document.getElementById('currency-from');
 let dropdown2 = document.getElementById('currency-to');
