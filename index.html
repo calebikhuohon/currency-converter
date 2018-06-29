@@ -17,7 +17,14 @@
     .then(reg => console.log(`Registration successful`))
     .catch(err => console.log(`Error: ${err}`));
     });
-        }</script>
+             var refreshing;
+  navigator.serviceWorker.addEventListener('controllerchange', function() {
+    if (refreshing) return;
+    window.location.reload();
+    refreshing = true;
+  });
+        }
+    </script>
     
     <title>Currency Converter</title>
 </head>
