@@ -1,11 +1,11 @@
 const staticCacheName = `converter-static-v1`;
 
 const URLs = [
-            './currency-converter/',
-          'js/index.js',
-          'css/index.css',
+            '/',
+          'index.js',
+          'index.css',
           //'./index',
-            'https://free.currencyconverterapi.com/api/v5/currencies'
+          'https://free.currencyconverterapi.com/api/v5/currencies'
         ];
 
 self.addEventListener('install', (event) => {
