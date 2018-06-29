@@ -11,9 +11,9 @@
     
     <script type="text/javascript" src="index.js" async></script>
     <script type="text/javascript" src="sw.js" async></script>
-    <script> if ('serviceWorker' in navigator) {
+    <script async> if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-    navigator.serviceWorker.register('currency-converter/sw.js', {scope: 'currency-converter'})
+    navigator.serviceWorker.register('./currency-converter/sw.js', {scope: 'currency-converter'})
     .then(reg => console.log(`Registration successful`))
     .catch(err => console.log(`Error: ${err}`));
     });
