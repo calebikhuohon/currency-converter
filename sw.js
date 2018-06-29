@@ -13,7 +13,7 @@ self.addEventListener('install', (event) => {
             'https://free.currencyconverterapi.com/api/v5/currencies'
         ]);
       });
-    console.log("event.waitUntil in install ended");
+   
     );
   });
   
