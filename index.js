@@ -1,4 +1,18 @@
-
+ if ('serviceWorker' in navigator) {
+    
+    navigator.serviceWorker.register('./currency-converter/sw.js', {scope: './currency-converter'})
+    .then(reg => console.log(`Registration successful`))
+    .catch(err => console.log(`Error: ${err}`));
+   
+  
+  var refreshing;
+  navigator.serviceWorker.addEventListener('controllerchange', function() {
+    if (refreshing) return;
+    window.location.reload();
+    refreshing = true;
+  });
+        }
+   
 
 let dropdown = document.getElementById('currency-from');
 let dropdown2 = document.getElementById('currency-to');
