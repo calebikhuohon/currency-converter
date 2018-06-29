@@ -1,4 +1,4 @@
-import idb from 'idb.js'
+import idb from 'idb'
  
  
  if ('serviceWorker' in navigator) {
