@@ -1,4 +1,4 @@
-const idb = require("./idb.js");
+import idb from 'idb.js'
  
  
  if ('serviceWorker' in navigator) {
