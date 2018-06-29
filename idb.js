@@ -1,3 +1,10 @@
+/**
+  
+This is a tiny library that mirrors IndexedDB, 
+but replaces the weird IDBRequest objects with promises, plus a couple of other small changes.
+Created by Jake Archibald and gotten from https://github.com/jakearchibald/idb/blob/master/lib/idb.js
+*/
+
 'use strict';
 
 (function() {
