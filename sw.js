@@ -3,7 +3,7 @@ const staticCacheName = `converter-static-v1`;
 self.addEventListener('install', (event) => {
     console.log("install starting");
     event.waitUntil(
-        console.log("waitUntil in install just starting");
+      
       caches.open(staticCacheName).then((cache) => {
         return cache.addAll([
             '/currency-converter/',
