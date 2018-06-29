@@ -54,7 +54,7 @@ self.addEventListener('install', (event) => {
 
                 let responseClone = response.clone();
 
-                caches.open(cacheName).then((cache) => {
+                caches.open(staticCacheName).then((cache) => {
                     cache.put(e.request, responseClone);
                     return fetch(e.request);
                 });
