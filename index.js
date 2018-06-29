@@ -1,6 +1,6 @@
  if ('serviceWorker' in navigator) {
     
-    navigator.serviceWorker.register('./currency-converter/sw.js', {scope: './currency-converter'})
+    navigator.serviceWorker.register('./sw.js', {scope: './currency-converter'})
     .then(reg => console.log(`Registration successful`))
     .catch(err => console.log(`Error: ${err}`));
    
