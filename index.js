@@ -1,9 +1,7 @@
 let amountFrom = document.getElementById("amountFrom").value;
-let fromCurrency = document.getElementById('currency-from');
-fromCurrency = fromCurrency.options[fromCurrency.selectedIndex].value;
+let fromCurrency = document.getElementById('currency-from').value;
 
-let toCurrency = document.getElementById('currency-to');
-toCurrency = toCurrency.options[toCurrency.selectedIndex].value;
+let toCurrency = document.getElementById('currency-to').value;
 let convert = `${fromCurrency}_${toCurrency}`;
 let amountTo = document.getElementById("amountTo");
 let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
