@@ -57,36 +57,37 @@ document.getElementById('convert-button').addEventListener('click', () => {
 
     let toCurrency = document.getElementById('currency-to').value;
     let convert = `${fromCurrency}_${toCurrency}`;
-    
-        let converted;
-        console.log(convert);
-        let amountTo = document.getElementById("amountTo");
-        let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
 
-        
+    let converted;
+    console.log(convert);
+    
+    let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
+
+    if (navigator.onLine) {
         console.log('query will be fetched from network');
         //fetch from network
         fetch(url).then((response) => {
                 return response.json();
             })
-            .then((jsonRes) => {
+            .then(jsonRes => {
                 console.log(jsonRes[convert]);
                 converted = jsonRes[convert] * amountFrom;
                 document.getElementById("amountTo").value = converted;
                 console.log(converted);
                 storeRates(convert, converted);
             });
-    
-        // console.log('offline');
-        // dbPromise.then((db) => {
-        //     let tx = db.transaction('rates', 'readwrite');
-        //     let currencyStore = tx.objectStore('rates');
-        //     return currencyStore.get(convert)
-        //         .then((rates) => {
-        //             document.getElementById("amountTo").value = rates;
-        //         })
+    } else {
+        console.log('offline');
+        dbPromise.then((db) => {
+            let tx = db.transaction('rates', 'readwrite');
+            let currencyStore = tx.objectStore('rates');
+            return currencyStore.get(convert)
+                .then((rates) => {
+                    document.getElementById("amountTo").value = rates;
+                })
 
-        // });
+        });
+    }
 
 
 });
@@ -117,7 +118,6 @@ let storeRates = (query, rate) => {
 
 
 if ('serviceWorker' in navigator) {
-    console.log(`${window.location.pathname}sw.js`);
     navigator.serviceWorker.register(`${window.location.pathname}sw.js`)
         .then(() => console.log("[Service Worker] successfully registered"))
         .catch((e) => console.log(e, "[Service Worker] An error occured"))

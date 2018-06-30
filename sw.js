@@ -1,5 +1,5 @@
 let cache = "converter";
-let version = "1";
+let version = "1.1.0";
 let cacheName = `${cache}_${version}`;
 let filesToCache = [
   
@@ -21,16 +21,16 @@ self.addEventListener("install", event => {
     caches.open(cacheName).then(cache => {
       console.log("[Service Worker] caching all files");
       cache.addAll(filesToCache);
-    }).then(() => self.skipWaiting()).catch(err => console.log("error occured while caching files: ",err))
+    }).then(() => self.skipWaiting()).catch(err => console.log("error occured in caching files ==> ",err))
   );
 });
 
 self.addEventListener("fetch", event => {
-  console.log(`[serviceWorker]${event.request.url}`);
+  //console.log(event.request.url)
 
   event.respondWith(
     caches.match(event.request).then(response => {
-      return response || fetch(event.request);
+      return fetch(event.request) || response 
     })
   );
 });
