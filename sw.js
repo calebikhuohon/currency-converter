@@ -1,4 +1,4 @@
-const staticCacheName = `converter-static-v1`;
+const staticCacheName = `converter-static-v3`;
 
 const filesToCache = [
   './',
@@ -6,7 +6,8 @@ const filesToCache = [
   './index.css',
   './index.html',
   './manifest.json',
-  './idb.js'
+  './idb.js',
+  'https://free.currencyconverterapi.com/api/v5/currencies'
 ];
 
 self.addEventListener('install', (event) => {
