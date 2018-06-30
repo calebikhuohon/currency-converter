@@ -25,14 +25,14 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
                 console.log(currencies);
 
                 for (c in currencies) {
-                    
+
                     let option = document.createElement('option');
                     let option2 = document.createElement('option');
 
-                   
-                
+
+
                     let check = currencies[c].id;
-                    
+
                     if (typeof check === 'undefined') {
                         check = '';
                         console.log(check);
@@ -44,10 +44,10 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
                     option2.value = check;
                     dropdown.add(option);
                     dropdown2.add(option2);
-                    
-                   
+
+
                 }
-                
+
             })
         }
     ).catch((err) => {
@@ -124,7 +124,7 @@ let storeRates = (query, rate) => {
 
         }).then(() => console.log('query added to  db'))
         .catch(err => console.log('adding query to db failed', err));
-}
+};
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register(`${window.location.pathname}sw.js`)
