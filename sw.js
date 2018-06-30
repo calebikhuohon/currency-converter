@@ -1,5 +1,5 @@
 let cache = "converter";
-let version = "1";
+let version = "2";
 let cacheName = `${cache}_${version}`;
 let filesToCache = [
   
@@ -8,7 +8,8 @@ let filesToCache = [
   './index.html',
   './manifest.json',
   './idb.js',
-  'https://free.currencyconverterapi.com/api/v5/currencies'
+  'https://free.currencyconverterapi.com/api/v5/currencies',
+  'https://fonts.googleapis.com/css?family=Roboto'
 ];
 
 

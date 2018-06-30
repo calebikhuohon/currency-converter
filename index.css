@@ -75,7 +75,7 @@ body {
     text-shadow: 4px 4px 4px whitesmoke;
     color: #EA8A1B;
     overflow: hidden;
-    background: #fafafa url("img/icon-select.png") no-repeat 90% 50%;
+    
 }
 
 .select-style select {
