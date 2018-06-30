@@ -83,7 +83,7 @@ let button = () => {
     }
 
 
-});
+}
 
 let storeRates = (query, rate) => {
     let queryCurrencies = query.split("_");
