@@ -51,7 +51,7 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
     });
 
 
-document.getElementById('convert-button').addEventListener('click', () => {
+document.querySelector('#convert-button').addEventListener('click', () => {
     let amountFrom = document.getElementById("amountFrom").value;
     let fromCurrency = document.getElementById('currency-from').value;
     
@@ -72,7 +72,8 @@ document.getElementById('convert-button').addEventListener('click', () => {
             .then(jsonRes => {
                 console.log(jsonRes[convert]);
                 converted = jsonRes[convert] * amountFrom;
-                document.getElementById("amountTo").value = converted;
+                document.querySelector("#amountTo").value = converted;
+                
                 console.log(converted);
                 storeRates(convert, converted);
             });
