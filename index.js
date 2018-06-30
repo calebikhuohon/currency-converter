@@ -63,7 +63,7 @@ document.getElementById('convert-button').addEventListener('click', () => {
         let amountTo = document.getElementById("amountTo");
         let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
 
-        if (navigator.onLine) {
+        
         console.log('query will be fetched from network');
         //fetch from network
         fetch(url).then((response) => {
@@ -76,18 +76,17 @@ document.getElementById('convert-button').addEventListener('click', () => {
                 console.log(converted);
                 storeRates(convert, converted);
             });
-    } else {
-        console.log('offline');
-        dbPromise.then((db) => {
-            let tx = db.transaction('rates', 'readwrite');
-            let currencyStore = tx.objectStore('rates');
-            return currencyStore.get(convert)
-                .then((rates) => {
-                    document.getElementById("amountTo").value = rates;
-                })
+    
+        // console.log('offline');
+        // dbPromise.then((db) => {
+        //     let tx = db.transaction('rates', 'readwrite');
+        //     let currencyStore = tx.objectStore('rates');
+        //     return currencyStore.get(convert)
+        //         .then((rates) => {
+        //             document.getElementById("amountTo").value = rates;
+        //         })
 
-        });
-    }
+        // });
 
 
 });
