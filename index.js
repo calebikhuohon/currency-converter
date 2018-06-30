@@ -80,10 +80,9 @@
                 dbPromise.then((db) => {
                     let tx = db.transaction('currency-converter');
                     let currencyStore = tx.objectStore('currency-converter');
-                    let currencyIndex = currencyStore.index('currency');
+                    let currencyIndex = currencyStore.index(convert);
                     
-                    return currencyIndex.get(convert)
-                     .then(val => {
+                    (val) => {
                          if(val === undefined) {
                              console.log('query will be fetched from network');
                             //fetch from network
@@ -101,11 +100,14 @@
                             })
                          } else {
                              console.log('query available', val);
+                             //get currenccyIndex
+                            currencyIndex.get(convert);
+                            val = convert;
                              let converted = amountFrom * val;
                              document.getElementById("amountTo").value = converted;
-
+                            
                          }
-                     })
+                     }
 
                      
                 }).then(() => console.log('query added to  db'))
@@ -116,11 +118,10 @@
                     let tx = db.transaction('currency-converter');
                     let currencyStore = tx.objectStore('currency-converter');
                     let currencyIndex = currencyStore.index('currency');
-                    return currencyIndex.get(convert)
-                        .then(val => {
+                    val => {
                             let converted = amountFrom * val;
                             document.getElementById("amountTo").value = converted;
-                        })
+                        }
                  });
              }
          }
