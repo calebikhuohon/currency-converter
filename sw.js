@@ -1,5 +1,5 @@
 let cache = "converter";
-let version = "3";
+let version = "1";
 let cacheName = `${cache}_${version}`;
 let filesToCache = [
   
@@ -26,7 +26,7 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("fetch", event => {
-  console.log(event.request.url)
+  console.log(event.request.url);
 
   event.respondWith(
     caches.match(event.request).then(response => {
