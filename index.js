@@ -1,10 +1,4 @@
-let amountFrom = document.getElementById("amountFrom").value;
-let fromCurrency = document.getElementById('currency-from').value;
 
-let toCurrency = document.getElementById('currency-to').value;
-let convert = `${fromCurrency}_${toCurrency}`;
-let amountTo = document.getElementById("amountTo");
-let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
 
 
 if ('serviceWorker' in navigator) {
@@ -78,7 +72,14 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
 
 
 document.getElementById('convert-button').addEventListener('click', () => {
-
+    let amountFrom = document.getElementById("amountFrom").value;
+    let fromCurrency = document.getElementById('currency-from').value;
+    
+    let toCurrency = document.getElementById('currency-to').value;
+    let convert = `${fromCurrency}_${toCurrency}`;
+    console.log(convert);
+    let amountTo = document.getElementById("amountTo");
+    let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
 
     if (navigator.onLine) {
         dbPromise.then((db) => {
@@ -91,16 +92,19 @@ document.getElementById('convert-button').addEventListener('click', () => {
                 fetch(url).then((response) => {
                         return response.json();
                     })
-                    .then(jsonRes => {
+                    .then((jsonRes) => {
                         console.log(jsonRes[convert]);
                         let converted = jsonRes[convert] * amountFrom;
                         document.getElementById("amountTo").value = converted;
                         console.log(converted);
                         
-                        currencyStore.put(converted, convert);
                         
-                    });
-                    return tx.complete;
+                        
+                    }).then((converted) => {
+                        currencyStore.put(converted, convert);
+                        return tx.complete;
+                    })
+                    
 
                 let queryStrings = convert.split("_");
                 //currencyStore.put((1/converted), `${queryStrings[1]_${queryStrings[0]}}`);
