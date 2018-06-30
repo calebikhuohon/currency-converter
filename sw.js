@@ -15,19 +15,18 @@ self.addEventListener('install', (event) => {
     caches.open(staticCacheName).then((cache) => {
       console.log('[ServiceWorker] Caching cacheFiles');
       return cache.addAll(filesToCache);
+      
     }).then(() => self.skipWaiting())
     .catch(err => console.log('error occured while caching files'))
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  console.log("[ServiceWorker] Fetching", e.request.url)
-  var requestUrl = new URL(event.request.url);
-
+self.addEventListener("fetch", event => {
+  console.log(event.request.url)
 
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request)
     })
   );
 });
