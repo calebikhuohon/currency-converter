@@ -1,10 +1,3 @@
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(`${window.location.pathname}sw.js`)
-        .then(() => console.log("[Service Worker] successfully register"))
-        .catch((e) => console.log(e, "[Service Worker] An error occured"))
-} else {
-    console.log("an error occured")
-}
 
 
 let dbPromise = idb.open('currency-converter', 2, (upgradeDb) => {
@@ -123,4 +116,12 @@ let storeRates = (query, rate) => {
 
         }).then(() => console.log('query added to  db'))
         .catch(err => console.log('adding query to db failed', err));
+}
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(`${window.location.pathname}sw.js`)
+        .then(() => console.log("[Service Worker] successfully register", window.location.pathname))
+        .catch((e) => console.log(e, "[Service Worker] An error occured"))
+} else {
+    console.log("an error occured")
 }
