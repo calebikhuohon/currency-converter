@@ -74,6 +74,7 @@ document.getElementById('convert-button').addEventListener('click', () => {
 
     let toCurrency = document.getElementById('currency-to').value;
     let convert = `${fromCurrency}_${toCurrency}`;
+    let converted;
     console.log(convert);
     let amountTo = document.getElementById("amountTo");
     let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
@@ -91,7 +92,7 @@ document.getElementById('convert-button').addEventListener('click', () => {
                     })
                     .then((jsonRes) => {
                         console.log(jsonRes[convert]);
-                        let converted = jsonRes[convert] * amountFrom;
+                        converted = jsonRes[convert] * amountFrom;
                         document.getElementById("amountTo").value = converted;
                         console.log(converted);
                         return converted;
