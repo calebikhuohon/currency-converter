@@ -75,10 +75,11 @@ document.getElementById('convert-button').addEventListener('click', (e) => {
             })
             .then((jsonRes) => {
                 console.log(jsonRes[convert]);
-                converted = jsonRes[convert] * amountFrom;
+                rate = jsonRes[convert];
+                converted = rate * amountFrom;
                 document.getElementById("amountTo").value = converted;
                 console.log(converted);
-                storeRates(convert, converted);
+                storeRates(convert, rate);
             });
     } else {
         console.log('offline');
@@ -88,7 +89,8 @@ document.getElementById('convert-button').addEventListener('click', (e) => {
             return currencyStore.get(convert)
                 .then((rate) => {
                     console.log(rate);
-                    document.getElementById("amountTo").value = rate;
+                    converted = rate * amountFrom;
+                    document.getElementById("amountTo").value = converted;
                     console.log('idb to UI');
                 })
 
