@@ -86,8 +86,9 @@ document.getElementById('convert-button').addEventListener('click', (e) => {
             let tx = db.transaction('rates', 'readwrite');
             let currencyStore = tx.objectStore('rates');
             return currencyStore.get(convert)
-                .then((rates) => {
-                    document.getElementById("amountTo").value = rates;
+                .then((rate) => {
+                    document.getElementById("amountTo").value = rate;
+                    console.log('idb to UI');
                 })
 
         });
