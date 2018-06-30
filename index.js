@@ -54,7 +54,7 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
 document.getElementById('convert-button').addEventListener('click', () => {
     let amountFrom = document.getElementById("amountFrom").value;
     let fromCurrency = document.getElementById('currency-from').value;
-
+    
     let toCurrency = document.getElementById('currency-to').value;
     let convert = `${fromCurrency}_${toCurrency}`;
 
@@ -63,10 +63,10 @@ document.getElementById('convert-button').addEventListener('click', () => {
     
     let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
 
-    if (navigator.onLine) {
+    // if (navigator.onLine) {
         console.log('query will be fetched from network');
         //fetch from network
-        fetch(url).then((response) => {
+        fetch(url).then(response => {
                 return response.json();
             })
             .then(jsonRes => {
@@ -76,18 +76,18 @@ document.getElementById('convert-button').addEventListener('click', () => {
                 console.log(converted);
                 storeRates(convert, converted);
             });
-    } else {
-        console.log('offline');
-        dbPromise.then((db) => {
-            let tx = db.transaction('rates', 'readwrite');
-            let currencyStore = tx.objectStore('rates');
-            return currencyStore.get(convert)
-                .then((rates) => {
-                    document.getElementById("amountTo").value = rates;
-                })
+    // } else {
+    //     console.log('offline');
+    //     dbPromise.then((db) => {
+    //         let tx = db.transaction('rates', 'readwrite');
+    //         let currencyStore = tx.objectStore('rates');
+    //         return currencyStore.get(convert)
+    //             .then((rates) => {
+    //                 document.getElementById("amountTo").value = rates;
+    //             })
 
-        });
-    }
+    //     });
+    // }
 
 
 });
