@@ -97,7 +97,7 @@ document.getElementById('convert-button').addEventListener('click', () => {
                             document.getElementById("amountTo").value = converted;
                             console.log(converted);
 
-                            currencyStore.put(convert, converted);
+                            currencyStore.put(converted, convert);
                             return tx.complete;
                         })
 
