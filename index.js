@@ -120,8 +120,8 @@ let storeRates = (query, rates) => {
                 return tx.complete;
             }
 
-            rateStore.put(parseFloat(rate), query);
-            rateStore.put(
+            currencyStore.put(parseFloat(rate), query);
+            currencyStore.put(
                 parseFloat(1 / rate),
                 `${queryCurrencies[1]}_${queryCurrencies[0]}`
             );
