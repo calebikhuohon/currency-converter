@@ -23,7 +23,7 @@ if ('serviceWorker' in navigator) {
         refreshing = true;
     });
 
-    let dbPromise = idb.open('currency-converter', 1, (upgradeDb) => {
+    let dbPromise = idb.open('currency-converter', 2, (upgradeDb) => {
         const keyValStore = upgradeDb.createObjectStore('currency-converter');
         keyValStore.createIndex(convert);
     });
