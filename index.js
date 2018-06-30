@@ -57,11 +57,13 @@ document.getElementById('convert-button').addEventListener('click', () => {
 
     let toCurrency = document.getElementById('currency-to').value;
     let convert = `${fromCurrency}_${toCurrency}`;
-    if (navigator.onLine) {
+    
         let converted;
         console.log(convert);
         let amountTo = document.getElementById("amountTo");
         let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
+
+        if (navigator.onLine) {
         console.log('query will be fetched from network');
         //fetch from network
         fetch(url).then((response) => {
