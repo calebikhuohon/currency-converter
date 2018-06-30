@@ -28,7 +28,7 @@ let dbPromise = idb.open('currency-converter', 2, (upgradeDb) => {
     switch (upgradeDb.oldVersion) {
         case 0:
             const keyValStore = upgradeDb.createObjectStore('rates');
-            
+
 
     }
 
@@ -79,43 +79,44 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
 
 document.getElementById('convert-button').addEventListener('click', () => {
 
-    
-        if (navigator.onLine) {
-            dbPromise.then((db) => {
-                    let tx = db.transaction('rates', 'readwrite');
-                    let currencyStore = tx.objectStore('rates');
-                    
 
-                    console.log('query will be fetched from network');
-                    //fetch from network
-                    fetch(url).then((response) => {
-                            return response.json();
-                        })
-                        .then(jsonRes => {
-                            console.log(jsonRes[convert]);
-                            let converted = jsonRes[convert] * amountFrom;
-                            document.getElementById("amountTo").value = converted;
-                            console.log(converted);
-
-                            currencyStore.put(converted, convert);
-                            return tx.complete;
-                        })
-
-                  
-                }).then(() => console.log('query added to  db'))
-                .catch(err => console.log('adding query to db failed', err));
-        } else {
-            console.log('offline');
-            dbPromise.then((db) => {
-                let tx = db.transaction('rates','readwrite');
+    if (navigator.onLine) {
+        dbPromise.then((db) => {
+                let tx = db.transaction('rates', 'readwrite');
                 let currencyStore = tx.objectStore('rates');
-                return currencyStore.get(convert)
+
+
+                console.log('query will be fetched from network');
+                //fetch from network
+                fetch(url).then((response) => {
+                        return response.json();
+                    })
+                    .then(jsonRes => {
+                        console.log(jsonRes[convert]);
+                        let converted = jsonRes[convert] * amountFrom;
+                        document.getElementById("amountTo").value = converted;
+                        console.log(converted);
+                    });
+                currencyStore.put(converted, convert);
+                return tx.complete;
+                let queryStrings = convert.split("_");
+                //currencyStore.put((1/converted), `${queryStrings[1]_${queryStrings[0]}}`);
+                //return tx.complete;
+
+            }).then(() => console.log('query added to  db'))
+            .catch(err => console.log('adding query to db failed', err));
+    } else {
+        console.log('offline');
+        dbPromise.then((db) => {
+            let tx = db.transaction('rates', 'readwrite');
+            let currencyStore = tx.objectStore('rates');
+            return currencyStore.get(convert)
                 .then((rates) => {
                     document.getElementById("amountTo").value = rates;
                 })
-                
-            });
-        }
-    
+
+        });
+    }
+
 
 });
