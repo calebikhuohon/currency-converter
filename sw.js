@@ -1,5 +1,5 @@
 let cache = "converter";
-let version = "1";
+let version = "3";
 let cacheName = `${cache}_${version}`;
 let filesToCache = [
   
