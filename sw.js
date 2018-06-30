@@ -1,4 +1,4 @@
-const staticCacheName = `converter-static-v2`;
+const staticCacheName = `converter-static-v1`;
 
 const filesToCache = [
   './',
