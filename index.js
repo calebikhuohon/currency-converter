@@ -63,7 +63,7 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
     });
 
 
-document.getElementById('convert-button').addEventListener('click', () => {
+let button = () => {
 
 
     if (navigator.onLine) {
@@ -127,3 +127,10 @@ let getRatesOnline = (query) => {
         });
 };
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(`${window.location.pathname}sw.js`)
+        .then(() => console.log("[Service Worker] successfully registered"))
+        .catch((e) => console.log(e, "[Service Worker] An error occured"))
+} else {
+    console.log("an error occured")
+}
