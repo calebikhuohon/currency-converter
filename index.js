@@ -63,7 +63,7 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
     });
 
 
-document.querySelector('convert-button').addEventListener('click', () => {
+document.getElementById('convert-button').addEventListener('click', () => {
 
 
     // if (navigator.onLine) {
