@@ -91,7 +91,7 @@ document.getElementById('convert-button').addEventListener('click', () => {
                 converted = jsonRes[convert] * amountFrom;
                 document.getElementById("amountTo").value = converted;
                 console.log(converted);
-                storeRates(converted, convert);
+                storeRates(convert, converted);
             });
     } else {
         console.log('offline');
