@@ -78,9 +78,7 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
 
 document.getElementById('convert-button').addEventListener('click', () => {
 
-    if (amountFrom === "") {
-        alert('please enter an amount to convert');
-    } else {
+    
         if (navigator.onLine) {
             dbPromise.then((db) => {
                     let tx = db.transaction('rates', 'readwrite');
@@ -117,6 +115,6 @@ document.getElementById('convert-button').addEventListener('click', () => {
                 
             });
         }
-    }
+    
 
 });
