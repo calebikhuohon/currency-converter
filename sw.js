@@ -1,7 +1,7 @@
 const staticCacheName = `converter-static-v3`;
 
 const filesToCache = [
-  './',
+  
   './index.js',
   './index.css',
   './index.html',
@@ -33,13 +33,10 @@ self.addEventListener("fetch", event => {
   }
   event.respondWith(
     caches.match(event.request).then(response => {
-      return response || fetch(event.request).then(function(response) {
-        cache.put(event.request, response.clone());
-        return response;
-      })
+      return response || fetch(event.request);
     })
-  );
-});
+  
+);
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keyList => {
