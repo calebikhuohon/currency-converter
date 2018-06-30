@@ -1,4 +1,4 @@
-const staticCacheName = `converter-static-v4`;
+const staticCacheName = `converter-static-v1`;
 
 const filesToCache = [
   
@@ -25,20 +25,16 @@ self.addEventListener('install', (event) => {
 self.addEventListener("fetch", event => {
   console.log(event.request.url)
 
-  if (requestUrl.origin === location.origin) {
-    if (requestUrl.pathname === './') {
-      event.respondWith(caches.match('./'));
-      return;
-    }
-  }
+ 
   event.respondWith(
     caches.match(event.request).then(response => {
-      return response || fetch(event.request);
+      return response || fetch(event.request).then(function(response) {
+        cache.put(event.request, response.clone());
+        return response;
+      })
     })
-  
-);
+  );
 });
-
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keyList => {
