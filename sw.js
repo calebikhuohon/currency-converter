@@ -12,7 +12,7 @@ const filesToCache = [
 self.addEventListener('install', (event) => {
   console.log("[ServiceWorker] installed");
   event.waitUntil(
-    caches.open(staticCacheName).then((cache) => {
+    caches.open(staticCacheName).then(cache => {
       console.log('[ServiceWorker] Caching cacheFiles');
       return cache.addAll(filesToCache);
       
@@ -24,6 +24,12 @@ self.addEventListener('install', (event) => {
 self.addEventListener("fetch", event => {
   console.log(event.request.url)
 
+  if (requestUrl.origin === location.origin) {
+    if (requestUrl.pathname === './') {
+      event.respondWith(caches.match('./'));
+      return;
+    }
+  }
   event.respondWith(
     caches.match(event.request).then(response => {
       return response || fetch(event.request)
