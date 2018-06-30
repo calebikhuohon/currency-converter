@@ -51,7 +51,7 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
     });
 
 
-document.getElementById('convert-button').addEventListener('click', () => {
+document.getElementById('convert-button').addEventListener('click', (e) => {
     let amountFrom = document.getElementById("amountFrom").value;
     let fromCurrency = document.getElementById('currency-from').value;
 
@@ -88,6 +88,8 @@ document.getElementById('convert-button').addEventListener('click', () => {
 
         });
     }
+
+    e.preventDefault();
 
 
 });
