@@ -1,19 +1,11 @@
 if ('serviceWorker' in navigator) {
-
-    navigator.serviceWorker.register('./sw.js', {
-            scope: './currency-converter'
-        })
-        .then(reg => console.log(`Registration successful`))
-        .catch(err => console.log(`Error: ${err}`));
-
-
-    let refreshing;
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (refreshing) return;
-        window.location.reload();
-        refreshing = true;
-    });
+    navigator.serviceWorker.register(`${window.location.pathname}sw.js`)
+        .then(() => console.log("[Service Worker] successfully register"))
+        .catch((e) => console.log(e, "[Service Worker] An error occured"))
+} else {
+    console.log("an error occured")
 }
+
 
 let dbPromise = idb.open('currency-converter', 2, (upgradeDb) => {
     switch (upgradeDb.oldVersion) {
