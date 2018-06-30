@@ -66,21 +66,21 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
 document.getElementById('convert-button').addEventListener('click', () => {
 
 
-    // if (navigator.onLine) {
-    console.log('query will be fetched from network');
-    getRatesOnline(convert);
-    // } else {
-    //     console.log('offline');
-    //     dbPromise.then((db) => {
-    //         let tx = db.transaction('rates', 'readwrite');
-    //         let currencyStore = tx.objectStore('rates');
-    //         return currencyStore.get(convert)
-    //             .then((rates) => {
-    //                 document.getElementById("amountTo").value = rates;
-    //             })
+    if (navigator.onLine) {
+        console.log('query will be fetched from network');
+        getRatesOnline(convert);
+    } else {
+        console.log('offline');
+        dbPromise.then((db) => {
+            let tx = db.transaction('rates', 'readwrite');
+            let currencyStore = tx.objectStore('rates');
+            return currencyStore.get(convert)
+                .then((rates) => {
+                    document.getElementById("amountTo").value = rates;
+                })
 
-    //     });
-    // }
+        });
+    }
 
 
 });
