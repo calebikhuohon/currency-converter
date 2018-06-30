@@ -28,6 +28,7 @@ let dbPromise = idb.open('currency-converter', 2, (upgradeDb) => {
     switch (upgradeDb.oldVersion) {
         case 0:
             const keyValStore = upgradeDb.createObjectStore('rates');
+            
 
     }
 
@@ -78,12 +79,14 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
 
 document.getElementById('convert-button').addEventListener('click', () => {
 
-    
+    if (amountFrom === "") {
+        alert('please enter an amount to convert');
+    } else {
         if (navigator.onLine) {
             dbPromise.then((db) => {
                     let tx = db.transaction('rates', 'readwrite');
                     let currencyStore = tx.objectStore('rates');
-                    let currencyIndex = currencyStore.index(convert);
+                    
 
                     console.log('query will be fetched from network');
                     //fetch from network
@@ -115,6 +118,6 @@ document.getElementById('convert-button').addEventListener('click', () => {
                 
             });
         }
-    
+    }
 
 });
