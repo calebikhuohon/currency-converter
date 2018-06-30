@@ -109,7 +109,7 @@ document.getElementById('convert-button').addEventListener('click', () => {
 
 });
 
-let storeRates = (query, rates) => {
+let storeRates = (query, rate) => {
     let queryCurrencies = query.split("_");
     dbPromise.then((db) => {
             let tx = db.transaction('rates', 'readwrite');
