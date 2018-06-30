@@ -1,15 +1,3 @@
-let amountFrom = document.getElementById("amountFrom").value;
-let fromCurrency = document.getElementById('currency-from').value;
-
-let toCurrency = document.getElementById('currency-to').value;
-let convert = `${fromCurrency}_${toCurrency}`;
-
-let converted;
-console.log(convert);
-
-let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
-
-
 let dbPromise = idb.open('currency-converter', 2, (upgradeDb) => {
     switch (upgradeDb.oldVersion) {
         case 0:
@@ -63,12 +51,31 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
     });
 
 
-let button = () => {
+document.getElementById('convert-button').addEventListener('click', () => {
+    let amountFrom = document.getElementById("amountFrom").value;
+    let fromCurrency = document.getElementById('currency-from').value;
 
+    let toCurrency = document.getElementById('currency-to').value;
+    let convert = `${fromCurrency}_${toCurrency}`;
+    let converted;
+    console.log(convert);
+    let amountTo = document.getElementById("amountTo");
+    let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
 
     if (navigator.onLine) {
+
         console.log('query will be fetched from network');
-        getRatesOnline(convert);
+        //fetch from network
+        fetch(url).then((response) => {
+                return response.json();
+            })
+            .then((jsonRes) => {
+                console.log(jsonRes[convert]);
+                converted = jsonRes[convert] * amountFrom;
+                document.getElementById("amountTo").value = converted;
+                console.log(converted);
+                storeRates(convert, converted);
+            });
     } else {
         console.log('offline');
         dbPromise.then((db) => {
@@ -83,7 +90,7 @@ let button = () => {
     }
 
 
-}
+});
 
 let storeRates = (query, rate) => {
     let queryCurrencies = query.split("_");
@@ -109,27 +116,9 @@ let storeRates = (query, rate) => {
         .catch(err => console.log('adding query to db failed', err));
 }
 
-
-let getRatesOnline = (query) => {
-    fetch(url)
-        .then(res => res.json())
-        .then(res => {
-            console.log(jsonRes[query]);
-            converted = jsonRes[query] * amountFrom;
-            document.querySelector("#amountTo").value = converted;
-
-            console.log(converted);
-            storeRates(query, converted);
-        })
-        .catch(err => {
-
-            console.log("An error occured, ", err);
-        });
-};
-
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register(`${window.location.pathname}sw.js`)
-        .then(() => console.log("[Service Worker] successfully registered"))
+        .then(() => console.log("[Service Worker] successfully register", ))
         .catch((e) => console.log(e, "[Service Worker] An error occured"))
 } else {
     console.log("an error occured")
