@@ -118,11 +118,3 @@ let storeRates = (query, rate) => {
         .catch(err => console.log('adding query to db failed', err));
 }
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(`${window.location.pathname}sw.js`)
-      .then(() => console.log("[Service Worker] successfully registered"))
-      .catch((e) => console.log(e, "[Service Worker] An error occured"))
-  } else {
-    console.log("an error occured")
-  }
- 
