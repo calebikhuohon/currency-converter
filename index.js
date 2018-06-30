@@ -80,34 +80,19 @@ document.getElementById('convert-button').addEventListener('click', () => {
     let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
 
     if (navigator.onLine) {
-        dbPromise.then((db) => {
-                let tx = db.transaction('rates', 'readwrite');
-                let currencyStore = tx.objectStore('rates');
 
-
-                console.log('query will be fetched from network');
-                //fetch from network
-                fetch(url).then((response) => {
-                        return response.json();
-                    })
-                    .then((jsonRes) => {
-                        console.log(jsonRes[convert]);
-                        converted = jsonRes[convert] * amountFrom;
-                        document.getElementById("amountTo").value = converted;
-                        console.log(converted);
-                        return converted;
-                    })
-                currencyStore.put(converted, convert);
-                return tx.complete;
-
-
-
-                let queryStrings = convert.split("_");
-                //currencyStore.put((1/converted), `${queryStrings[1]_${queryStrings[0]}}`);
-                //return tx.complete;
-
-            }).then(() => console.log('query added to  db'))
-            .catch(err => console.log('adding query to db failed', err));
+        console.log('query will be fetched from network');
+        //fetch from network
+        fetch(url).then((response) => {
+                return response.json();
+            })
+            .then((jsonRes) => {
+                console.log(jsonRes[convert]);
+                converted = jsonRes[convert] * amountFrom;
+                document.getElementById("amountTo").value = converted;
+                console.log(converted);
+                storeRates(converted, convert);
+            });
     } else {
         console.log('offline');
         dbPromise.then((db) => {
@@ -123,3 +108,27 @@ document.getElementById('convert-button').addEventListener('click', () => {
 
 
 });
+
+let storeRates = (query, rates) => {
+    let queryCurrencies = query.split("_");
+    dbPromise.then((db) => {
+            let tx = db.transaction('rates', 'readwrite');
+            let currencyStore = tx.objectStore('rates');
+
+            if (queryCurrencies[0] == queryCurrencies[1]) {
+                currencyStore.put(parseFloat(rate), query);
+                return tx.complete;
+            }
+
+            rateStore.put(parseFloat(rate), query);
+            rateStore.put(
+                parseFloat(1 / rate),
+                `${queryCurrencies[1]}_${queryCurrencies[0]}`
+            );
+            return tx.complete;
+
+
+
+        }).then(() => console.log('query added to  db'))
+        .catch(err => console.log('adding query to db failed', err));
+}
