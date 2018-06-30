@@ -96,9 +96,12 @@ document.getElementById('convert-button').addEventListener('click', () => {
                         let converted = jsonRes[convert] * amountFrom;
                         document.getElementById("amountTo").value = converted;
                         console.log(converted);
+                        
+                        currencyStore.put(converted, convert);
+                        
                     });
-                currencyStore.put(converted, convert);
-                return tx.complete;
+                    return tx.complete;
+
                 let queryStrings = convert.split("_");
                 //currencyStore.put((1/converted), `${queryStrings[1]_${queryStrings[0]}}`);
                 //return tx.complete;
