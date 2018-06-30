@@ -27,10 +27,9 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
                 for (c in currencies) {
                     let option = document.createElement('option');
                     let option2 = document.createElement('option');
-                    option.value = `${currencies[c].id}`;
-                    option2.value = `${currencies[c].id}`;
+                
                     let check = currencies[c].id;
-
+                    
                     if (typeof check === 'undefined') {
                         check = '';
                         console.log(check);
@@ -41,8 +40,7 @@ fetch('https://free.currencyconverterapi.com/api/v5/currencies')
                     option2.value = check;
                     dropdown.add(option);
                     dropdown2.add(option2);
-                    //expect.appendChild(option);
-                    //have.appendChild(option.cloneNode(true));
+                   
                 }
             })
         }
