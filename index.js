@@ -1,5 +1,3 @@
- 
- 
  if ('serviceWorker' in navigator) {
 
      navigator.serviceWorker.register('./sw.js', {
@@ -17,11 +15,10 @@
      });
 
      let dbPromise = idb.open('currency-converter', 1, (upgradeDb) => {
-         const store = upgradeDb.createObjectStore('currency-converter');
-         store.createIndex('exchange rate', 'currency');
+         const keyValStore = upgradeDb.createObjectStore('currency-converter');
+         keyValStore.createIndex('currency', 'exchange rate');
      });
  }
-
 
  let dropdown = document.getElementById('currency-from');
  let dropdown2 = document.getElementById('currency-to');
@@ -66,23 +63,13 @@
      });
 
 
-
-
-
-
-
-
-
-
- //https://free.currencyconverterapi.com/api/v5/convert?q=USD_PHP,PHP_USD
-
-
-
-
  document.getElementById('convert-button').addEventListener('click', () => {
      let amountFrom = document.getElementById("amountFrom").value;
-     let fromCurrency = document.getElementById('currency-from').value;
-     let toCurrency = document.getElementById('currency-to').value;
+     let fromCurrency = document.getElementById('currency-from');
+     fromCurrency = fromCurrency.options[fromCurrency.selectedIndex].text;
+
+     let toCurrency = document.getElementById('currency-to');
+     toCurrency = toCurrency.options[toCurrency.selectedIndex].text;
      let convert = `${fromCurrency}_${toCurrency}`;
      let amountTo = document.getElementById("amountTo");
      let url = `https://free.currencyconverterapi.com/api/v5/convert?q=${convert}&compact=ultra`;
@@ -90,25 +77,53 @@
      if (amountFrom === "") {
          alert('please enter an amount to convert');
      } else {
-         if(navigator.onLine) {
-            fetch(url).then((response) => {
-                return response.json();
-             })
-             .then(jsonRes => {
-                 console.log(jsonRes[convert]);
-                 let converted = jsonRes[convert] * amountFrom;
-                 document.getElementById("amountTo").value = converted;
-                 console.log(converted);
-             })
+         if (navigator.onLine) {
+             dbPromise.then((db) => {
+                     let tx = db.transaction('currency-converter');
+                     let currencyStore = tx.objectStore('currency-converter');
+                     let currencyIndex = currencyStore.index('currency');
+
+                     return currencyIndex.get(convert)
+                         .then(val => {
+                             if (val === undefined) {
+                                 console.log('query will be fetched from network');
+                                 //fetch from network
+                                 fetch(url).then((response) => {
+                                         return response.json();
+                                     })
+                                     .then(jsonRes => {
+                                         console.log(jsonRes[convert]);
+                                         let converted = jsonRes[convert] * amountFrom;
+                                         document.getElementById("amountTo").value = converted;
+                                         console.log(converted);
+
+                                         currencyStore.put(convert, converted);
+                                         return tx.complete;
+                                     })
+                             } else {
+                                 console.log('query available', val);
+                                 let converted = amountFrom * val;
+                                 document.getElementById("amountTo").value = converted;
+
+                             }
+                         })
+
+
+                 }).then(() => console.log('query added to  db'))
+                 .catch(err => console.log('adding query to db failed', err));
+         } else {
+             console.log('offline');
+             dbPromise.then((db) => {
+                 let tx = db.transaction('currency-converter');
+                 let currencyStore = tx.objectStore('currency-converter');
+                 let currencyIndex = currencyStore.index('currency');
+                 return currencyIndex.get(convert)
+                     .then(val => {
+                         let converted = amountFrom * val;
+                         document.getElementById("amountTo").value = converted;
+                     })
+             });
          }
      }
-     fetch(url).then((response) => {
-            return response.json();
-         })
-         .then(jsonRes => {
-             console.log(jsonRes[convert]);
-             let converted = jsonRes[convert] * amountFrom;
-             document.getElementById("amountTo").value = converted;
-             console.log(converted);
-         })
+
  });
